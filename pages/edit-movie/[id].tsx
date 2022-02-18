@@ -4,9 +4,11 @@ import useMovieState from "../../state/movieState";
 import { Movie } from "../../types/MovieTypes";
 import { useRouter } from "next/router";
 import InputField from "../../components/InputField";
+import { useNotificationState } from "../../state/notificationState";
 
 const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
   const { editMovie, movies } = useMovieState((state) => state);
+  const { editNotification } = useNotificationState((state) => state);
   const [edit, setEdit] = useState<Movie>({
     id: movies.length + 1,
     title: "",
@@ -38,6 +40,7 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
     const movie: Movie = edit;
 
     editMovie(movie);
+    editNotification();
     router.push("/");
   }
 

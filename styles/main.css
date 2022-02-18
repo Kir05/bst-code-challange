@@ -197,6 +197,9 @@ input[type="number"] {
 #Notification > .is-deleted {
   background: #de2c32;
 }
+#Notification > .is-edited {
+  background: gray;
+}
 #Notification > .is-created {
   background: #1cc56b;
 }

@@ -1,29 +1,29 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { useNotificationState } from "../state/notificationState";
 
 const Notification: FC<{ count: number }> = ({ count }) => {
-  const { isCreated, isDeleted, closeNotification } = useNotificationState(
-    (state) => state
-  );
+  const { isCreated, isDeleted, isEdited, closeNotification } =
+    useNotificationState((state) => state);
 
   useEffect(() => {
     setTimeout(() => {
       closeNotification();
-    }, 2500);
-  }, [closeNotification, isDeleted]);
+    }, 7000);
+  }, [closeNotification]);
 
   return (
     <div id="Notification">
       <div
         className={`container ${isCreated && "is-created"} ${
           isDeleted && "is-deleted"
-        }`}
+        } ${isEdited && "is-edited"}`}
       >
         <div className="body">
           {isCreated && <p>Movie created successfully</p>}
           {isDeleted && (
             <p>Movie deleted successfully {count > 0 && "(" + count + ")"}</p>
           )}
+          {isEdited && <p>Movie edited successfully</p>}
           <button onClick={() => closeNotification()}>Close</button>
         </div>
       </div>

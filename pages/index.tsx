@@ -30,7 +30,7 @@ const Home: NextPage = () => {
 
         <div className="container">
           <header>
-            <h1>Movies</h1>
+            <h1>Movies ({movies.length})</h1>
             <Link href="/create-movie">Add New</Link>
           </header>
 
