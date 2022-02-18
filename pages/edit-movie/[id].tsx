@@ -6,11 +6,13 @@ import { useRouter } from "next/router";
 import InputField from "../../components/InputField";
 import { useNotificationState } from "../../states/notificationState";
 
+// fix later
+// eslint-disable-next-line react/prop-types
 const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
   const { editMovie, movies } = useMovieState((state) => state);
   const { editNotification } = useNotificationState((state) => state);
   const [edit, setEdit] = useState<Movie>({
-    id: movies.length + 1,
+    id: currentId,
     title: "",
     director: "",
     distributor: "",
