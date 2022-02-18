@@ -12,7 +12,10 @@ const Notification: FC<{ count: number }> = ({ count }) => {
   }, [closeNotification]);
 
   return (
-    <div id="Notification">
+    <div
+      id="Notification"
+      className={`${isCreated || isEdited || (isDeleted && "active")}`}
+    >
       <div
         className={`container ${isCreated && "is-created"} ${
           isDeleted && "is-deleted"

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
 }
@@ -14,148 +18,69 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  text-decoration: none;
-}
-
 a,
 button {
-  border-radius: 5px;
-  border: none;
-  padding: 5px 16px;
-  background: gray;
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  animation-duration: 0.2s;
-}
-
-a:hover,
-button:hover {
-  filter: brightness(110%);
+  @apply rounded-md border-none px-4 py-1 bg-gray-400 text-white font-bold text-[14px] cursor-pointer transition duration-150 no-underline hover:brightness-110;
 }
 
 h1 {
-  font-size: 40px;
-  margin: 0;
+  @apply text-4xl my-0 font-black;
 }
 
 .container {
-  width: 100%;
+  @apply w-full mx-auto;
   max-width: calc(1400px - calc(2 * 30px));
-  margin: 0 auto;
-}
-
-header > a {
-  margin-left: auto;
-  background: #a5a7ae;
-  font-size: 20px;
-}
-
-#Homepage {
-  margin-bottom: 40px;
-}
-
-#Homepage > .container > header {
-  display: flex;
-  align-items: center;
-  margin: 30px 0;
 }
 
 #EditMovie > .container,
 #CreateMovie > .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
+  @apply flex flex-col justify-center items-center mt-8;
 }
 
-/* Table */
+/* Table CSS */
 table {
-  width: 100%;
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  border-collapse: collapse;
-}
-
-th {
-  text-align: left;
-  padding: 10px 15px;
-}
-td,
-th {
-  padding: 10px 15px;
-}
-tbody > tr:nth-child(odd) {
-  background-color: #f2f2f2;
-}
-thead > tr {
-  background-color: gray;
-  color: #fff;
-}
-
-td > button {
-}
-
-td:last-of-type,
-th:last-of-type {
-  border-left: 2px solid rgba(0, 0, 0, 0.3);
+  @apply w-full border-solid border-2 border-black border-opacity-30 border-collapse;
+  th,
+  td {
+    @apply text-left px-3 py-3.5;
+  }
+  thead > tr {
+    @apply text-white bg-gray;
+  }
+  .controls {
+    @apply flex items-center;
+    button {
+      @apply last:bg-red last:ml-1.5;
+    }
+  }
+  tr:nth-child(even) {
+    @apply bg-gray-light;
+  }
+  td:last-of-type,
+  th:last-of-type {
+    @apply border-solid border-l-2 border-black border-opacity-20;
+  }
 }
 
 /* Form CSS */
 form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-label {
-  font-weight: 700;
-  cursor: pointer;
-}
-
-form > section {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto 0;
-}
-input {
-  width: 100%;
-  padding: 15px;
-  margin-top: 5px;
-  font-weight: bold;
-  font-size: 16px;
-  color: #000;
-  outline: none;
-}
-input:last-of-type {
-  margin-bottom: 0;
-}
-form > .buttons {
-  width: 100%;
-  max-width: 300px;
-  display: flex;
-  align-items: center;
-  margin: 20px auto 0;
-}
-
-form > .buttons > button {
-  width: 100%;
-  margin: 0 auto;
-  padding: 15px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  background: #1cc56b;
-}
-form > .buttons > button:first-of-type {
-  margin-right: 10px;
-  background: #de2c32;
-}
-
-.controls > button {
-  margin-left: 10px;
-  background: #de2c32;
+  @apply flex flex-col w-full;
+  label {
+    @apply font-bold cursor-pointer;
+  }
+  section {
+    @apply w-full max-w-[600px] mx-auto my-5;
+  }
+  input {
+    @apply w-full p-4 mt-1 font-bold text-[16px] text-black outline-hidden bg-gray-light shadow-md
+            border-solid border-2 border-black border-opacity-5 rounded-md;
+  }
+  .buttons {
+    @apply w-full max-w-[300px] flex items-center mx-auto mt-5;
+  }
+  button {
+    @apply w-full mx-auto p-4 cursor-pointer text-[15px] first:bg-red last:bg-green last:ml-3;
+  }
 }
 
 input::-webkit-outer-spin-button,
@@ -169,37 +94,34 @@ input[type="number"] {
 }
 
 /* Notification CSS */
+
 #Notification {
-  position: fixed;
-  bottom: 0;
-  right: 50px;
-  margin: 0 auto;
+  @apply fixed bottom-0 right-14 transition duration-150 opacity-0;
+  &.active {
+    @apply opacity-100;
+  }
+  .container {
+    @apply p-4 w-[400px] rounded-t-lg text-white font-bold text-[17px] flex flex-col items-center;
+    box-shadow: -3px -5px 5px rgba(0, 0, 0, 0.16);
+  }
+  button {
+    @apply bg-white text-black w-full text-[15px] mt-3 max-w-[250px];
+  }
+  .is-deleted {
+    @apply bg-red;
+  }
+  .is-edited {
+    @apply bg-gray;
+  }
+  .is-created {
+    @apply bg-green;
+  }
 }
-#Notification > .container {
-  padding: 15px;
-  width: 400px;
-  border-radius: 8px 8px 0 0;
-  color: #fff;
-  font-weight: 700;
-  font-size: 17px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: -3px -5px 5px rgba(0, 0, 0, 0.16);
-}
-#Notification > .container > .body > button {
-  background: #fff;
-  color: #000;
-  width: 100%;
-  font-size: 15px;
-}
-#Notification > .is-deleted {
-  background: #de2c32;
-}
-#Notification > .is-edited {
+
+#InputValidator {
   background: gray;
-}
-#Notification > .is-created {
-  background: #1cc56b;
+  color: white;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }

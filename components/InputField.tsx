@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useMemo } from "react";
 import { Movie } from "../types/MovieTypes";
+import InputValidator from "./InputValidator";
 
 type Props = {
   label: string;
@@ -21,7 +22,7 @@ const InputField: FC<Props> = ({
   isRequired,
 }) => {
   return (
-    <section className="form-group">
+    <section className="form-group relative">
       {label && <label htmlFor="title">{label}</label>}
       <input
         id="title"
@@ -32,6 +33,7 @@ const InputField: FC<Props> = ({
         onChange={onChange}
         required={isRequired}
       />
+      {/* <InputValidator /> */}
     </section>
   );
 };
