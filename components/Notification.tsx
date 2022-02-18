@@ -11,15 +11,19 @@ const Notification: FC<{ count: number }> = ({ count }) => {
     }, 7000);
   }, [closeNotification]);
 
+  console.log(isCreated);
+
   return (
     <div
       id="Notification"
-      className={`${isCreated || isEdited || (isDeleted && "active")}`}
+      className={`${isCreated ? "active" : ""} ${isDeleted ? "active" : ""} ${
+        isEdited ? "active" : ""
+      }`}
     >
       <div
-        className={`container ${isCreated && "is-created"} ${
-          isDeleted && "is-deleted"
-        } ${isEdited && "is-edited"}`}
+        className={`container ${isCreated ? "is-created" : ""} ${
+          isDeleted ? "is-deleted" : ""
+        } ${isEdited ? "is-edited" : ""}`}
       >
         <div className="body">
           {isCreated && <p>Movie created successfully</p>}

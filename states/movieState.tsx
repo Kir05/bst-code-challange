@@ -28,7 +28,6 @@ const useMovieState = create<MovieState>((set) => ({
     set((state) => ({
       movies: state.movies.map((el: Movie) => {
         if (el.id == movie.id) {
-          console.log("Found");
           return {
             ...el,
             title: movie.title,
