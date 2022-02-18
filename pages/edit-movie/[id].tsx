@@ -1,10 +1,10 @@
 import { NextPage } from "next";
 import React, { useMemo, useState } from "react";
-import useMovieState from "../../state/movieState";
+import useMovieState from "../../states/movieState";
 import { Movie } from "../../types/MovieTypes";
 import { useRouter } from "next/router";
 import InputField from "../../components/InputField";
-import { useNotificationState } from "../../state/notificationState";
+import { useNotificationState } from "../../states/notificationState";
 
 const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
   const { editMovie, movies } = useMovieState((state) => state);
@@ -14,10 +14,33 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
     title: "",
     director: "",
     distributor: "",
-    imdb_rating: "",
-    imdb_votes: "",
+    imdb_rating: 0,
+    imdb_votes: 0,
   });
   const router = useRouter();
+
+  const [error, setError] = useState<string>("");
+
+  const validate = () => {
+    if (!edit.title) {
+      setError("Movie name can't be blank!");
+      return false;
+    } else if (edit.director.length <= 2) {
+      setError("Director's name must contain atleast 2 characters!");
+      return false;
+    } else if (edit.distributor.length <= 2) {
+      setError("Distributor's name must contain atleast 2 characters!");
+      return false;
+    } else if (isNaN(edit.imdb_rating)) {
+      setError("Rating must be a valid number!");
+      return false;
+    } else if (isNaN(edit.imdb_votes)) {
+      setError("Votes must be a valid number!");
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   useMemo(() => {
     movies.filter((el) => {
@@ -36,12 +59,14 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
 
   function handleSubmit(event: any) {
     event.preventDefault();
-
+    const isValid = validate();
     const movie: Movie = edit;
 
-    editMovie(movie);
-    editNotification();
-    router.push("/");
+    if (isValid) {
+      editMovie(movie);
+      editNotification();
+      router.push("/");
+    }
   }
 
   return (
@@ -56,7 +81,6 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
             name="title"
             value={edit.title}
             onChange={(e) => setEdit({ ...edit, title: e.target.value })}
-            isRequired={true}
           />
 
           <InputField
@@ -66,7 +90,6 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
             name="director"
             value={edit.director}
             onChange={(e) => setEdit({ ...edit, director: e.target.value })}
-            isRequired={true}
           />
 
           <InputField
@@ -76,7 +99,6 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
             name="distributor"
             value={edit.distributor}
             onChange={(e) => setEdit({ ...edit, distributor: e.target.value })}
-            isRequired={true}
           />
 
           <InputField
@@ -105,6 +127,7 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
           </section>
         </form>
       </div>
+      {error && <div id="InputError">{error}</div>}
     </div>
   );
 };

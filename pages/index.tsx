@@ -2,10 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { Movie } from "../types/MovieTypes";
-import useMovieState from "../state/movieState";
+import useMovieState from "../states/movieState";
 import { useMemo, useState } from "react";
 import Notification from "../components/Notification";
-import { useNotificationState } from "../state/notificationState";
+import { useNotificationState } from "../states/notificationState";
 
 const Home: NextPage = () => {
   const { movies, getMovies, removeMovie } = useMovieState((state) => state);

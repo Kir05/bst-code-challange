@@ -118,10 +118,6 @@ input[type="number"] {
   }
 }
 
-#InputValidator {
-  background: gray;
-  color: white;
-  position: absolute;
-  left: 0;
-  bottom: 0;
+#InputError {
+  @apply absolute left-0 right-0 mx-auto bg-gray text-white max-w-max font-bold rounded-lg p-4;
 }

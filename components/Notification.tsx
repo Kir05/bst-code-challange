@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { useNotificationState } from "../state/notificationState";
+import { useNotificationState } from "../states/notificationState";
 
 const Notification: FC<{ count: number }> = ({ count }) => {
   const { isCreated, isDeleted, isEdited, closeNotification } =

@@ -1,6 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
-import { Movie } from "../types/MovieTypes";
-import InputValidator from "./InputValidator";
+import React, { FC } from "react";
 
 type Props = {
   label: string;
@@ -23,9 +21,9 @@ const InputField: FC<Props> = ({
 }) => {
   return (
     <section className="form-group relative">
-      {label && <label htmlFor="title">{label}</label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <input
-        id="title"
+        id={name}
         type={type}
         name={name}
         defaultValue={value}
@@ -33,7 +31,6 @@ const InputField: FC<Props> = ({
         onChange={onChange}
         required={isRequired}
       />
-      {/* <InputValidator /> */}
     </section>
   );
 };

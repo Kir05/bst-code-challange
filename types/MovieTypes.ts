@@ -3,6 +3,6 @@ export type Movie = {
   title: string;
   director: string;
   distributor: string;
-  imdb_rating?: number | string;
-  imdb_votes?: number | string;
+  imdb_rating: number;
+  imdb_votes: number;
 };

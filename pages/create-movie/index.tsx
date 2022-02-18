@@ -1,10 +1,10 @@
 import { NextPage } from "next";
 import React, { useState } from "react";
-import useMovieState from "../../state/movieState";
+import useMovieState from "../../states/movieState";
 import { Movie } from "../../types/MovieTypes";
 import { useRouter } from "next/router";
 import InputField from "../../components/InputField";
-import { useNotificationState } from "../../state/notificationState";
+import { useNotificationState } from "../../states/notificationState";
 
 const CreateMovie: NextPage = () => {
   const { createMovie, movies } = useMovieState((state) => state);
@@ -16,18 +16,42 @@ const CreateMovie: NextPage = () => {
     title: "",
     director: "",
     distributor: "",
-    imdb_rating: undefined,
-    imdb_votes: undefined,
+    imdb_rating: 0,
+    imdb_votes: 0,
   });
+
+  const [error, setError] = useState<string>("");
+
+  const validate = () => {
+    if (!newMovie.title) {
+      setError("Movie name can't be blank!");
+      return false;
+    } else if (newMovie.director.length <= 2) {
+      setError("Director's name must contain atleast 2 characters!");
+      return false;
+    } else if (newMovie.distributor.length <= 2) {
+      setError("Distributor's name must contain atleast 2 characters!");
+      return false;
+    } else if (isNaN(newMovie.imdb_rating)) {
+      setError("Rating must be a valid number!");
+      return false;
+    } else if (isNaN(newMovie.imdb_votes)) {
+      setError("Votes must be a valid number!");
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   function handleSubmit(event: any) {
     event.preventDefault();
-
+    const isValid = validate();
     const movie: Movie = newMovie;
-
-    createMovie(movie);
-    createNotification();
-    router.push("/");
+    if (isValid) {
+      createMovie(movie);
+      createNotification();
+      router.push("/");
+    }
   }
 
   return (
@@ -43,7 +67,6 @@ const CreateMovie: NextPage = () => {
             onChange={(e) =>
               setNewMovie({ ...newMovie, title: e.target.value })
             }
-            isRequired={true}
           />
 
           <InputField
@@ -54,7 +77,6 @@ const CreateMovie: NextPage = () => {
             onChange={(e) =>
               setNewMovie({ ...newMovie, director: e.target.value })
             }
-            isRequired={true}
           />
 
           <InputField
@@ -68,8 +90,8 @@ const CreateMovie: NextPage = () => {
           />
 
           <InputField
-            type="number"
-            placeholder="Enter the movie's rating"
+            type="text"
+            placeholder="Enter the movie's rating (optional)"
             label="Movie Rating:"
             name="rating"
             onChange={(e) =>
@@ -78,8 +100,8 @@ const CreateMovie: NextPage = () => {
           />
 
           <InputField
-            type="number"
-            placeholder="Enter the number of votes"
+            type="text"
+            placeholder="Enter the number of votes (optional)"
             label="Rating Votes:"
             name="votes"
             onChange={(e) =>
@@ -95,6 +117,8 @@ const CreateMovie: NextPage = () => {
           </section>
         </form>
       </div>
+
+      {error && <div id="InputError">{error}</div>}
     </div>
   );
 };
