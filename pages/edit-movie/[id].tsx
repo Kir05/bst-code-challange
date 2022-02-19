@@ -32,12 +32,12 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
   // Simple input validation error messages
   const validate = () => {
     if (!edit.title) {
-      setError("Movie name can't be blank!");
+      setError("Movie title can't be blank!");
       return false;
-    } else if (edit.director.length <= 2) {
+    } else if (edit.director.length < 2) {
       setError("Director's name must contain atleast 2 characters!");
       return false;
-    } else if (edit.distributor.length <= 2) {
+    } else if (edit.distributor.length < 2) {
       setError("Distributor's name must contain atleast 2 characters!");
       return false;
     } else if (isNaN(edit.imdb_rating)) {
@@ -113,7 +113,7 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
           />
 
           <InputField
-            type="number"
+            type="text"
             placeholder="Enter the movie's rating"
             label="Movie Rating:"
             name="rating"
@@ -122,7 +122,7 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
           />
 
           <InputField
-            type="number"
+            type="text"
             placeholder="Enter the number of votes"
             label="Rating Votes:"
             name="votes"
@@ -131,10 +131,16 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
           />
 
           <section className="buttons">
-            <button type="button" onClick={() => router.push("/")}>
+            <button
+              className="btn-back"
+              type="button"
+              onClick={() => router.push("/")}
+            >
               Go Back
             </button>
-            <button type="submit">Update Movie</button>
+            <button className="btn-submit" type="submit">
+              Update Movie
+            </button>
           </section>
         </form>
       </div>

@@ -1,4 +1,6 @@
+/* eslint-disable no-undef */
 describe("homepage-view", () => {
+  // Test redirects
   it("should load homepage and display table with movies", () => {
     cy.visit("http://localhost:3000/");
   });

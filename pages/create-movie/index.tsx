@@ -30,12 +30,12 @@ const CreateMovie: NextPage = () => {
   // Simple input validation error messages
   const validate = () => {
     if (!newMovie.title) {
-      setError("Movie name can't be blank!");
+      setError("Movie title can't be blank!");
       return false;
-    } else if (newMovie.director.length <= 2) {
+    } else if (newMovie.director.length < 2) {
       setError("Director's name must contain atleast 2 characters!");
       return false;
-    } else if (newMovie.distributor.length <= 2) {
+    } else if (newMovie.distributor.length < 2) {
       setError("Distributor's name must contain atleast 2 characters!");
       return false;
     } else if (isNaN(newMovie.imdb_rating)) {

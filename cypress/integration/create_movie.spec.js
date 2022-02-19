@@ -1,4 +1,6 @@
+/* eslint-disable no-undef */
 describe("create-page-view", () => {
+  // Test redirects
   it("should load homepage and display table with movies", () => {
     cy.visit("http://localhost:3000/");
   });
@@ -25,19 +27,13 @@ describe("create-page-view", () => {
   });
 
   it("error message must be for movie name", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
-    cy.get("#CreateMovie > #InputError").contains("Movie name");
+    cy.get("#CreateMovie > #InputError").contains("Movie title");
   });
 
   it("should add a movie name", () => {
     cy.get("#CreateMovie > .container > form > .form-group > #title").type(
       "Sample Movie"
     );
-  });
-
-  it("should try to submit form with movie name and an error to show under buttons", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
-    cy.get("#CreateMovie > #InputError").should("be.visible");
   });
 
   //   Test director validation
@@ -58,7 +54,6 @@ describe("create-page-view", () => {
   });
 
   it("error message must be for director's name agian", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
     cy.get("#CreateMovie > #InputError").contains("Director's name");
   });
 
@@ -75,7 +70,6 @@ describe("create-page-view", () => {
   });
 
   it("error message must be for distributor's name", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
     cy.get("#CreateMovie > #InputError").contains("Distributor's name");
   });
 
@@ -91,7 +85,6 @@ describe("create-page-view", () => {
   });
 
   it("error message must be for distributor's name", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
     cy.get("#CreateMovie > #InputError").contains("Distributor's name");
   });
 
@@ -159,7 +152,6 @@ describe("create-page-view", () => {
     cy.get("#CreateMovie > #InputError").should("be.visible");
   });
   it("error message must be for movie rating", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
     cy.get("#CreateMovie > #InputError").contains("Rating");
   });
 
@@ -180,8 +172,8 @@ describe("create-page-view", () => {
     cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
     cy.get("#CreateMovie > #InputError").should("be.visible");
   });
+
   it("error message must be for movie votes", () => {
-    cy.get("#CreateMovie > .container > form > .buttons > .btn-submit").click();
     cy.get("#CreateMovie > #InputError").contains("Vote");
   });
 
