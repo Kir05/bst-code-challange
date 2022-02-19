@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useMovieState from "../../states/movieState";
 import { Movie } from "../../types/MovieTypes";
 import { useRouter } from "next/router";
@@ -11,6 +11,7 @@ import { useNotificationState } from "../../states/notificationState";
 const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
   const { editMovie, movies } = useMovieState((state) => state);
   const { editNotification } = useNotificationState((state) => state);
+  const [error, setError] = useState<string>("");
   const [edit, setEdit] = useState<Movie>({
     id: currentId,
     title: "",
@@ -21,8 +22,14 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
   });
   const router = useRouter();
 
-  const [error, setError] = useState<string>("");
+  // If for some reason app starts from this page - go to homepage to load list
+  useEffect(() => {
+    if (movies.length === 0) {
+      router.push("/");
+    }
+  }, [movies]);
 
+  // Simple input validation error messages
   const validate = () => {
     if (!edit.title) {
       setError("Movie name can't be blank!");
@@ -44,6 +51,7 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
     }
   };
 
+  // On input change update values of state
   useMemo(() => {
     movies.filter((el) => {
       if (currentId == el.id) {
@@ -59,6 +67,7 @@ const EditMovie: NextPage<{ currentId: number }> = ({ currentId }) => {
     });
   }, [currentId, movies]);
 
+  // On submit validate and update movie
   function handleSubmit(event: any) {
     event.preventDefault();
     const isValid = validate();

@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useMovieState from "../../states/movieState";
 import { Movie } from "../../types/MovieTypes";
 import { useRouter } from "next/router";
@@ -9,8 +9,8 @@ import { useNotificationState } from "../../states/notificationState";
 const CreateMovie: NextPage = () => {
   const { createMovie, movies } = useMovieState((state) => state);
   const { createNotification } = useNotificationState((state) => state);
+  const [error, setError] = useState<string>("");
   const router = useRouter();
-
   const [newMovie, setNewMovie] = useState<Movie>({
     id: movies.length + 1,
     title: "",
@@ -20,8 +20,14 @@ const CreateMovie: NextPage = () => {
     imdb_votes: 0,
   });
 
-  const [error, setError] = useState<string>("");
+  // If for some reason app starts from this page - go to homepage to load list
+  useEffect(() => {
+    if (movies.length === 0) {
+      router.push("/");
+    }
+  }, [movies]);
 
+  // Simple input validation error messages
   const validate = () => {
     if (!newMovie.title) {
       setError("Movie name can't be blank!");
@@ -43,6 +49,7 @@ const CreateMovie: NextPage = () => {
     }
   };
 
+  // On Submit validate and update movie list
   function handleSubmit(event: any) {
     event.preventDefault();
     const isValid = validate();
