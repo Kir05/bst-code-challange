@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 describe("create-page-view", () => {
   // Test redirects
   it("should load homepage and display table with movies", () => {
