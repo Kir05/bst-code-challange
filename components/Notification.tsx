@@ -11,8 +11,6 @@ const Notification: FC<{ count: number }> = ({ count }) => {
     }, 7000);
   }, [closeNotification]);
 
-  console.log(isCreated);
-
   return (
     <div
       id="Notification"

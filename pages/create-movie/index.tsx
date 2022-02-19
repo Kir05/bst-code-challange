@@ -117,10 +117,16 @@ const CreateMovie: NextPage = () => {
           />
 
           <section className="buttons">
-            <button type="button" onClick={() => router.push("/")}>
+            <button
+              className="btn-back"
+              type="button"
+              onClick={() => router.push("/")}
+            >
               Go Back
             </button>
-            <button type="submit">Save Movie</button>
+            <button className="btn-submit" type="submit">
+              Save Movie
+            </button>
           </section>
         </form>
       </div>

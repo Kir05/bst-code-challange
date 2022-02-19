@@ -33,7 +33,9 @@ const Home: NextPage = () => {
           <header className="flex items-center mb-8">
             <h1>Movies ({movies.length})</h1>
             <Link href="/create-movie" passHref>
-              <a className="ml-auto text-[20px] py-2 bg-green">Add New Movie</a>
+              <a className="btn-add-movie ml-auto text-[20px] py-2 bg-green">
+                Add New Movie
+              </a>
             </Link>
           </header>
 
