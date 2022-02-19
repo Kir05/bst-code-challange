@@ -6,7 +6,7 @@ A simple movie list app where you can add, edit and delete a table full of movie
 
 ## How to use
 
-This project uses Cypress to run it's test.
+This project uses Cypress to run it's test and zustand as a state-management system.
 
 Cypress depends on http://localhost:3000. You can run the command below to start both the server and cypress:
 
